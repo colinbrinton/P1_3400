@@ -1,27 +1,32 @@
+# AUTHOR: Colin Brinton
+# FILENAME: P1.py
+# DATE: 04/05/2016
+# REVISION HISTORY: 1.0
+
 from sys import argv
 from re import findall
 from collections import Counter
 
 NUM_ARG = 3
 NUM_WORDS = 5
+FILE_ONE = 1
+FILE_TWO = 2
 
-if len(argv) != NUM_ARG:
-    print("Pass two text files as arguments.")
-else:
-    file1 = open(argv[1], 'r')
-    string1 = file1.read()
-    file1.close()
-    words1 = findall(r'\w+', string1)
-    process_words1 = [word.lower() for word in words1]
 
-    file2 = open(argv[2], 'r')
-    string2 = file2.read()
-    file2.close()
-    words2 = findall(r'\w+', string2)
-    process_words2 = [word.lower() for word in words2]
+def get_words(arg_num):
+    file = open(argv[arg_num], 'r')
+    string = file.read()
+    file.close()
+    words = findall(r'\w+', string)
+    process_words = [word.lower() for word in words]
+    return process_words
 
-    common_words = set(process_words1).intersection(process_words2)
-    all_words = process_words1 + process_words2
+try:
+    words1 = get_words(FILE_ONE)
+    words2 = get_words(FILE_TWO)
+
+    common_words = set(words1).intersection(words2)
+    all_words = words1 + words2
     all_common = [word for word in all_words if word in common_words]
     common_count = Counter(all_common)
     total_count = dict(Counter(all_words).most_common(NUM_WORDS))
@@ -42,11 +47,6 @@ else:
     for word in total_sorted:
         print('{:<15}'.format(word), total_count[word])
 
-
-
-
-
-
-
-
-
+except IndexError:
+    print('Pass two text files as command line arguments:')
+    print('P1.py <file1>.txt <file2>.txt')
