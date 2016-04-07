@@ -4,8 +4,8 @@
 # REVISION HISTORY: 1.0
 
 from sys import argv
-from re import findall
 from collections import Counter
+import string
 
 NUM_ARG = 3
 NUM_WORDS = 5
@@ -15,9 +15,14 @@ FILE_TWO = 2
 
 def get_words(arg_num):
     file = open(argv[arg_num], 'r')
-    string = file.read()
+    raw_text = file.read()
     file.close()
-    words = findall(r'\w+', string)
+
+    remove_punc = lambda text: [word.strip(string.punctuation) for word in text.split()
+                                if word.strip(string.punctuation) != '']
+
+    words = remove_punc(raw_text)
+
     process_words = [word.lower() for word in words]
     return process_words
 
