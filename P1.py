@@ -19,7 +19,7 @@ def get_words(arg_num):
     file.close()
 
     words = [word.strip(punctuation) for word in raw_text.split() if word.strip(punctuation) != '']
-    process_words = [word.lower() for word in words]
+    process_words = [word.lower() for word in words if word.isalpha()]
     return process_words
 
 try:
