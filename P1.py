@@ -38,14 +38,14 @@ try:
     print('Word        Frequency')
     print('---------------------')
     for word in common_sorted:
-        print('{:<15}'.format(word), common_count[word])
+        print('{:15}'.format(word), common_count[word])
     print()
 
     print('Top', NUM_WORDS, 'words present in either file: ')
     print('Word        Frequency')
     print('---------------------')
     for word in total_sorted:
-        print('{:<15}'.format(word), total_count[word])
+        print('{:15}'.format(word), total_count[word])
 
 except IndexError:
     print('Pass two text files as command line arguments:')
