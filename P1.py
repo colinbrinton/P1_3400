@@ -5,7 +5,7 @@
 
 from sys import argv
 from collections import Counter
-import string
+from string import punctuation
 
 NUM_ARG = 3
 NUM_WORDS = 5
@@ -18,11 +18,7 @@ def get_words(arg_num):
     raw_text = file.read()
     file.close()
 
-    remove_punc = lambda text: [word.strip(string.punctuation) for word in text.split()
-                                if word.strip(string.punctuation) != '']
-
-    words = remove_punc(raw_text)
-
+    words = [word.strip(punctuation) for word in raw_text.split() if word.strip(punctuation) != '']
     process_words = [word.lower() for word in words]
     return process_words
 
